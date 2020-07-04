@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelItensFabricacao" pageWidth="752" pageHeight="572" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0259ddd9-b7dd-494c-b996-dbbc6d0892ff">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fabricacaoid" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     itensfabricacao."id" AS itensfabricacao_id,
+     itensfabricacao."preco" AS itensfabricacao_preco,
+     itensfabricacao."quantidade" AS itensfabricacao_quantidade,
+     itensfabricacao."fabricacao_id" AS itensfabricacao_fabricacao_id,
+     materiaprima."id" AS materiaprima_id,
+     materiaprima."nome" AS materiaprima_nome,
+     materiaprima."grupomateriaprima_id" AS materiaprima_grupomateriaprima_id,
+     itensfabricacao."materiaprima_id" AS itensfabricacao_materiaprima_id
+FROM
+     "public"."materiaprima" materiaprima INNER JOIN "public"."itensfabricacao" itensfabricacao ON materiaprima."id" = itensfabricacao."materiaprima_id"
+
+WHERE
+     itensfabricacao."fabricacao_id" = $P{fabricacaoid}]]>
+	</queryString>
+	<field name="itensfabricacao_id" class="java.lang.Long"/>
+	<field name="itensfabricacao_preco" class="java.lang.Double"/>
+	<field name="itensfabricacao_quantidade" class="java.lang.Double"/>
+	<field name="itensfabricacao_fabricacao_id" class="java.lang.Long"/>
+	<field name="materiaprima_id" class="java.lang.Long"/>
+	<field name="materiaprima_nome" class="java.lang.String"/>
+	<field name="materiaprima_grupomateriaprima_id" class="java.lang.Long"/>
+	<field name="itensfabricacao_materiaprima_id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="1" width="157" height="20" uuid="7d0e07ae-cbdc-4279-a18d-e816730b1c4d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Materia Prima]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="21" width="157" height="20" uuid="e718d2c3-b890-4f3b-8883-7692e952ba8e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{materiaprima_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="167" y="0" width="192" height="20" uuid="78fe99cb-cbb8-4311-ba56-dade01f4c1a7"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="167" y="20" width="192" height="20" uuid="b79c1b40-3660-441d-a366-9d04692af4a9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{itensfabricacao_quantidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="359" y="0" width="175" height="20" uuid="ccf1526f-a1b7-412a-8670-09db99f76c81"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Preço]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="359" y="21" width="175" height="20" uuid="4c09c9cc-060a-4e93-844e-8c78822aa4fd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{itensfabricacao_preco}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

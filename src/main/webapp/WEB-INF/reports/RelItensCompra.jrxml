@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelItensCompra" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="cf9cede8-93a3-43d8-9b73-6edaf4e4dabc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="compraid" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     itenscompra."id" AS itenscompra_id,
+     itenscompra."preco" AS itenscompra_preco,
+     itenscompra."quantidade" AS itenscompra_quantidade,
+     itenscompra."compra_id" AS itenscompra_compra_id,
+     itenscompra."materiaprima_id" AS itenscompra_materiaprima_id,
+     materiaprima."nome" AS materiaprima_nome,
+     materiaprima."id" AS materiaprima_id,
+     itenscompra."quantidade" * itenscompra."preco" as subtotal
+
+FROM
+     "public"."materiaprima" materiaprima INNER JOIN "public"."itenscompra" itenscompra ON materiaprima."id" = itenscompra."materiaprima_id"
+WHERE
+itenscompra."compra_id"=$P{compraid}]]>
+	</queryString>
+	<field name="itenscompra_id" class="java.lang.Long"/>
+	<field name="itenscompra_preco" class="java.lang.Double"/>
+	<field name="itenscompra_quantidade" class="java.lang.Double"/>
+	<field name="itenscompra_compra_id" class="java.lang.Long"/>
+	<field name="itenscompra_materiaprima_id" class="java.lang.Long"/>
+	<field name="materiaprima_nome" class="java.lang.String"/>
+	<field name="materiaprima_id" class="java.lang.Long"/>
+	<field name="subtotal" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="1" width="198" height="20" uuid="6e94c05e-6a6a-4f31-9e50-8944d22b99e5"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Materia Prima]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="12" y="21" width="198" height="20" uuid="badad94c-9b66-442e-a8e9-427d25518e8c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{materiaprima_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="210" y="0" width="100" height="20" uuid="9899df0a-a0a4-4cdb-b498-5cb3c726d011"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Preco]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="210" y="20" width="100" height="20" uuid="93971f0a-ca45-4808-bfa5-ebd556191e86"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{itenscompra_preco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="0" width="100" height="20" uuid="9b2f15ca-8285-4b20-a5b3-dd6516d248fe"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="310" y="20" width="100" height="20" uuid="f57affa7-7cb4-46fc-a09c-6dfe54949db7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{itenscompra_quantidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="0" width="100" height="20" uuid="ad6d7e1b-5478-4cdb-81a8-a6856171956f"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="410" y="20" width="100" height="20" uuid="203b7d54-92cd-475e-8416-63981b9c5fe1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+
+        <h:outputScript library="js" name="/mascaraMonetaria/Parsers.js" />
+        <h:outputScript library="js" name="/mascaraMonetaria/JavaScriptUtil.js" />
+        <h:outputScript library="js" name="/mascaraMonetaria/InputMask.js" />   
+        <script language="JavaScript">
+            function mascaraMonetaria(arg) {
+                //Set up the NumberMasks
+                var separadorDecimal = ",";
+                var separadorMilhar = ".";
+
+                var formato = new NumberParser(2, separadorDecimal, separadorMilhar, true);
+                formato.currencySymbol = "R$";
+                formato.useCurrency = true;
+                formato.allowNegative = false;
+                formato.currencyInside = true;
+
+                if (arg.className.indexOf('mascaraMonetaria') == -1) {
+                    var mascaraMonetariaFinal = new NumberMask(formato, arg, 20);
+                    mascaraMonetariaFinal.leftToRight = true;
+                    arg.setAttribute('autocomplete', 'off');
+                    arg.className += ' mascaraMonetaria';
+                }
+            }
+        </script> 
+        <title>Sistema Fábrica de Móveis</title>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="110">
+                <table>
+                    <tr>
+                        <td>
+                            <div align="center">
+<!--                                <img width="150" src="imagens/IMG-20181008-WA0016.jpg" alt=""/>-->
+                                <img src="imagens/Jb m.jpg" width="210" alt=""/>
+                            </div>
+                            
+                        </td>
+                        <td align="right" width="1350">
+                            <p:outputLabel value="Sistema Fábrica de Móveis " style="font-size: 30px"/>
+                        </td>                    
+                        <td align="right" width="800">
+                        </td>
+                    </tr>
+                </table>    
+            </p:layoutUnit>
+            <p:layoutUnit position="south" size="35" style="text-align: center">
+                <p:outputLabel value="Todos os direitos reservados @2018"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" size="180" >
+                <h:form>
+                    <p:menu style="width: 160px">
+                        <p:submenu label="Cadastros" rendered="true" >                                                      
+                            <p:menuitem  value="Estado"  action="/estado/estadolista"/>
+                            <p:menuitem  value="Cidade"  action="/cidade/cidadelista"/>
+                            <p:menuitem  value="Cliente"  action="/cliente/clientelista"/>
+                            <p:menuitem  value="Fornecedor"  action="/fornecedor/fornecedorlista"/>
+                            <p:menuitem  value="Grupo de Matéria Prima"  action="/grupomateriaprima/grupomateriaprimalista"/>
+                            <p:menuitem  value="Gropo de Produto de Final"  action="/grupoprodutofinal/grupoprodutofinallista"/>
+                            <p:menuitem  value="Matéria Prima"  action="/materiaprima/materiaprimalista"/>
+                            <p:menuitem  value="Produto Final"  action="/produtofinal/produtofinallista"/>
+                                                        
+                        </p:submenu>
+                        <p:submenu label="Movimentos" rendered="true" >                                                      
+                            <p:menuitem  value="Compra"  action="/compra/compralista"/>
+                            <p:menuitem  value="Contas a Pagar"  action="/contaspagar/contaspagarlista"/>
+                            <p:menuitem  value="Contas a Receber"  action="/contasreceber/contasreceberlista"/>
+                            <p:menuitem  value="Fabricação"  action="/fabricacao/fabricacaolista"/>
+                            <p:menuitem  value="Venda"  action="/venda/vendalista"/>
+                        </p:submenu>
+                        <p:submenu label="Relatorios" rendered="true" >
+                            <p:menuitem  ajax="false" action="/dashboard/dashboard" value="Dashboard" 
+                                             actionListener="#{dashboardControle.atualizar()}"/>
+                             <p:menuitem  value="Relatorio de Estados"  ajax="false" action="/relatorios/relestado"/>
+                             <p:menuitem  value="Relatorio de Cidades"  ajax="false" action="/relatorios/relcidade"/>
+                             <p:menuitem  value="Relatorio Grupo de Matéria Prima"  ajax="false" action="/relatorios/relgrupomateriaprima"/>
+                             <p:menuitem  value="Relatorio de Matéria Prima"  ajax="false" action="/relatorios/relmateriaprima"/>
+                             <p:menuitem  value="Relatorio Grupo de Móveis"  ajax="false" action="/relatorios/relgrupoproduto"/>
+                             <p:menuitem  value="Relatorio de Móveis"  ajax="false" action="/relatorios/relmoveis"/>
+                             <p:menuitem  value="Relatorio de Fabricação"  ajax="false" action="/relatorios/relfabricacao"/>
+                             <p:menuitem  value="Relatorio de Compra"  ajax="false" action="/relatorios/relcompra"/>
+                             <p:menuitem  value="Relatorio de Cliente"  ajax="false" action="/relatorios/relcliente"/>
+                             <p:menuitem  value="Relatorio de Fornecedores"  ajax="false" action="/relatorios/relfornecedor"/>
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <ui:insert id="corpo" name="body">
+                    Seja bem vindo!
+                </ui:insert>
+            </p:layoutUnit>
+        </p:layout>        
+    </h:body>
+</html>
+

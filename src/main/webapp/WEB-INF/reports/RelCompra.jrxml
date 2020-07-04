@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelCompra" pageWidth="585" pageHeight="842" columnWidth="545" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0685bb00-8f33-4504-853c-4d1771cc220e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/lucas/NetBeansProjects/relatorios/JDMoveis/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fornecedor" class="java.lang.String"/>
+	<parameter name="datainicial" class="java.util.Date"/>
+	<parameter name="datafinal" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     compra."id" AS compra_id,
+     compra."datacompra" AS compra_datacompra,
+     compra."descricao" AS Descricao,
+     compra."formapag" AS Formapag,
+     compra."valortotal" AS Valortotal,
+     fornecedor."nome" AS Fornecedor,
+     fornecedor."cpfcnpj" AS CpfCnpj
+FROM
+     "public"."fornecedor" fornecedor INNER JOIN "public"."compra" compra ON fornecedor."id" = compra."fornecedor_id"
+where
+      fornecedor."nome" like $P{fornecedor}
+and compra."datacompra"  between $P{datainicial} and $P{datafinal}]]>
+	</queryString>
+	<field name="compra_id" class="java.lang.Long"/>
+	<field name="compra_datacompra" class="java.sql.Date"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="formapag" class="java.lang.String"/>
+	<field name="valortotal" class="java.lang.Double"/>
+	<field name="fornecedor" class="java.lang.String"/>
+	<field name="cpfcnpj" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-40" y="-20" width="595" height="92" backcolor="#006699" uuid="d81caeb2-5d52-4f28-972b-f8d60451dc2f"/>
+				<staticText>
+					<reportElement x="20" y="20" width="375" height="43" forecolor="#FFFFFF" uuid="52b55a65-5afb-47d5-8a05-6229120e94bd"/>
+					<textElement>
+						<font fontName="Century Schoolbook L" size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatório de Compra]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="63" width="180" height="20" forecolor="#FFFFFF" uuid="b5f65360-e37d-4e24-b3a0-5f782133da46"/>
+					<textElement textAlignment="Right">
+						<font fontName="Century Schoolbook L" size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[JD Móveis]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="341" y="-33" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3b2e461f-6351-4553-9daa-9ce35ce8aced"/>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Forma Pag]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="6f9250d5-df97-4b5f-9c3d-9d42e8430d7c"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="4dca87ce-a2d0-4c1a-b94b-f00058477e68"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="92" y="0" width="159" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="d3a6f540-92fc-491a-bf2a-3bfbb394f871"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fornecedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="251" y="0" width="162" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="43b59f16-fd9c-492e-8484-fd418e8be1f8"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cpf/Cnpj]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="413" y="0" width="132" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e28f80f3-a219-4f92-9460-f75b44c1fc2c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma Pag]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="af59e23a-29e9-44ad-b479-93ff48940b1e"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="92" height="20" uuid="167c606b-b205-464d-af6e-a15a5613bb0e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compra_datacompra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="92" y="0" width="159" height="20" uuid="8617f8c3-c81f-4181-a3e8-067a1cf81694"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fornecedor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="251" y="0" width="162" height="20" uuid="01d2e12c-9972-45bb-b6ce-635b860c0184"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cpfcnpj}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="413" y="0" width="132" height="20" uuid="ad6dcb11-59e3-4cc6-8e18-e4d82d8de7c3"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formapag}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="73">
+			<subreport>
+				<reportElement x="0" y="18" width="527" height="41" uuid="cc0d823b-c457-4554-bd43-5786dc78eba1"/>
+				<subreportParameter name="compraid">
+					<subreportParameterExpression><![CDATA[$F{compra_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RelItensCompra.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="32">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="445" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#FF1C00" uuid="a9841c00-0704-466d-a5c2-4d61a1738837"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valortotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#FF0000" uuid="3ed34845-c635-404b-b6f7-8651fec1b932"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total:   ]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="1550e044-1da7-428d-b5b0-41e182d74483"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="b276c2e5-aefd-48d1-a5ea-e5f948ea6548"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="57ff22c6-16c9-48ae-977c-5f4cead22fd2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

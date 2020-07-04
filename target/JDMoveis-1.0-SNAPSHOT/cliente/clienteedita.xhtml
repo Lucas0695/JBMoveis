@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h1 align="center">Cadastro de Cliente</h1>        
+            <h:form>
+                <p:growl autoUpdate="true"/>
+
+                                <table>
+                                    <tr><td align="center" width="1450"> 
+                                            <p:selectOneRadio  value="#{clienteControle.tipoPessoa}"  layout="grid" columns="2">
+                                                <f:selectItem itemLabel="Pessoa Fisica" itemValue="PessoaFisica"/> 
+                                                <f:selectItem itemLabel="Pessoa Juridica" itemValue="PessoaJuridica"/>
+                                                <p:ajax  update="painel"/>
+                                            </p:selectOneRadio>    
+                                        </td></tr>
+                                </table>
+                                <br/>
+    
+                    <p:panelGrid columns="4" id="painel"> 
+
+                        Nome:<p:inputText value="#{clienteControle.cli.nome}" 
+                                          required="true"
+                                          requiredMessage="O nome é obrigatório!"
+                                          size="50"
+                                          id="nome"/>
+                        <p:outputLabel value="CPF:" rendered="#{clienteControle.isPF()}"/>
+                        <p:inputMask value="#{clienteControle.cli.cpfCnpj}" 
+                                     mask="999.999.999-99"
+                                     required="true"
+                                     requiredMessage="O CPF é obrigatório!"
+                                     size="25"
+                                     id="cpfCnpj1"
+                                     rendered="#{clienteControle.isPF()}"/>
+                        <p:outputLabel value="CNPJ:" rendered="#{clienteControle.isPJ()}"/>
+                        <p:inputMask value="#{clienteControle.cli.cpfCnpj}" 
+                                     mask="99.999.999/9999-99"
+                                     required="true"
+                                     requiredMessage="O CNPJ é obrigatório!"
+                                     size="25"
+                                     id="cpfCnpj2"
+                                     rendered="#{clienteControle.isPJ()}"/>
+                        Endereço:<p:inputText value="#{clienteControle.cli.endereco}" 
+                                              required="true"
+                                              requiredMessage="O esdereço é obrigatório!"
+                                              size="50"
+                                              id="enderece"/>
+                        Numero:<p:inputText value="#{clienteControle.cli.numero}" 
+                                            required="true"
+                                            size="5"
+                                            id="numero"/>
+                        Bairro:<p:inputText value="#{clienteControle.cli.bairro}" 
+                                            required="true"
+                                            size="20"
+                                            id="bairro"/>
+                        1° Telefone:<p:inputMask value="#{clienteControle.cli.telefone}" 
+                                              mask="(99)9999-99999"
+                                              required="true"
+                                              size="25"
+                                              id="telefone"/>
+
+
+
+                        Cidade: <p:autoComplete value="#{clienteControle.cli.cidade}"
+                                                completeMethod="#{clienteControle.getListaCidadesFiltrando}"
+                                                var="cid"
+                                                itemLabel="#{cid.nome}"
+                                                itemValue="#{cid}"
+                                                converter="#{clienteControle.cidadeConverter}"
+                                                forceSelection="true"
+                                                />
+                        2° Telefone:<p:inputMask value="#{clienteControle.cli.telefone2}" 
+                                              mask="(99)9999-99999"
+
+                                              size="25"
+                                              id="telefone2"/>
+
+                    </p:panelGrid>
+                    <p:panelGrid>
+                        <br/>
+                        <p:commandButton value="Salvar" 
+                                         actionListener="#{clienteControle.salvar()}"
+                                         action="clientelista"
+                                         />
+                        <p:commandButton value="Voltar" 
+                                         action="clientelista"
+                                         immediate="true"
+                                         />
+                    </p:panelGrid>                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

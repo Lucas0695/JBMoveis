@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="cidade" required="true"/>
+        <cc:attribute name="exibicaoCidade" required="true"/>
+        <cc:attribute name="exibicaoEstado" required="true"/>
+        <cc:attribute name="rotuloCidade" default="Cidade:"/>
+        <cc:attribute name="rotuloEstado" default="Estado:"/>
+        <cc:attribute name="filtraEstado" default="false"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:panelGrid columns="2">
+            <p:outputLabel value="#{cc.attrs.rotuloEstado}" rendered="#{cc.attrs.filtraEstado}"/>
+            <p:selectOneMenu value="#{componenteCidEstControle.estado}" 
+                             id="estado"                             
+                             rendered="#{cc.attrs.filtraEstado}"
+                             converter="#{componenteCidEstControle.estadoConverter}"
+                             >
+                <f:selectItems value="#{componenteCidEstControle.listaEstados()}"
+                               var="est"
+                               itemLabel="#{cc.attrs.exibicaoEstado}"
+                               itemValue="#{est}"/>
+                <p:ajax update="cidade" event="itemSelect"/>
+            </p:selectOneMenu>
+            
+            <p:outputLabel value="#{cc.attrs.rotuloCidade}"/>
+            <p:selectOneMenu value="#{cc.attrs.cidade}" 
+                             id="cidade"
+                             converter="#{componenteCidEstControle.cidadeConverter}"
+                             >
+                <f:selectItems value="#{componenteCidEstControle.listaCidades()}"
+                               var="cid"
+                               itemLabel="#{cc.attrs.exibicaoCidade}"
+                               itemValue="#{cid}"/>
+            </p:selectOneMenu>
+        </p:panelGrid>
+    </cc:implementation>
+</html>

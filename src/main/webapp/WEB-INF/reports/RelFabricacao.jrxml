@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelFabricacao" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59abd05a-b845-41a1-b7b1-2d082fed4296">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/lucas/NetBeansProjects/relatorios/JDMoveis/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="produto" class="java.lang.String"/>
+	<parameter name="datainicial" class="java.util.Date"/>
+	<parameter name="datafinal" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     produtofinal."id" AS produtofinal_id,
+     produtofinal."nome" AS produtofinal_nome,
+     fabricacao."id" AS fabricacao_id,
+     fabricacao."datafabricacao" AS fabricacao_datafabricacao,
+     fabricacao."quantidadeproduto" AS fabricacao_quantidadeproduto,
+     fabricacao."situacao" AS fabricacao_situacao,
+     fabricacao."valortotal" AS fabricacao_valortotal,
+     fabricacao."valorfinal" AS fabricacao_valorfinal,
+     fabricacao."produtofinal_id" AS fabricacao_produtofinal_id,
+     fabricacao."percentual" AS fabricacao_percentual
+FROM
+     "public"."produtofinal" produtofinal INNER JOIN "public"."fabricacao" fabricacao ON produtofinal."id" = fabricacao."produtofinal_id"
+WHERE
+     produtofinal."nome" LIKE $P{produto}
+     and fabricacao."datafabricacao" BETWEEN $P{datainicial} and $P{datafinal}]]>
+	</queryString>
+	<field name="produtofinal_id" class="java.lang.Long"/>
+	<field name="produtofinal_nome" class="java.lang.String"/>
+	<field name="fabricacao_id" class="java.lang.Long"/>
+	<field name="fabricacao_datafabricacao" class="java.sql.Date"/>
+	<field name="fabricacao_quantidadeproduto" class="java.lang.Double"/>
+	<field name="fabricacao_situacao" class="java.lang.String"/>
+	<field name="fabricacao_valortotal" class="java.lang.Double"/>
+	<field name="fabricacao_valorfinal" class="java.lang.Double"/>
+	<field name="fabricacao_produtofinal_id" class="java.lang.Long"/>
+	<field name="fabricacao_percentual" class="java.lang.Double"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="739e31c2-23e8-4617-a096-4ae057ec9145"/>
+				<staticText>
+					<reportElement x="20" y="20" width="426" height="43" forecolor="#FFFFFF" uuid="474a1db5-39f3-499c-99ca-98ac8ff4b64e"/>
+					<textElement>
+						<font fontName="Century Schoolbook L" size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatório de fabricação]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="446" y="63" width="129" height="20" forecolor="#FFFFFF" uuid="26ca124a-65f2-4c55-a649-09b98b22486c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Century Schoolbook L" size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[JD Móveis]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="9caf3378-3742-4023-bdff-88f49a127f57"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="0" width="88" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="85d15b11-215e-47ab-86ce-24a4d8c41d8e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="334" y="0" width="109" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="6ea97c9f-f02a-47a3-830b-d3a393322c4e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Situação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="443" y="0" width="109" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="fac481c2-5a57-4798-a46a-e5fce27956fc"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quant. Fab.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="0" width="234" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="df5f3c40-50f7-4d12-bd52-d01db728f9fb"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Móvel]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="f1af27ac-5907-4dba-b4a2-c3c8d0610de4"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="100" y="0" width="234" height="20" uuid="6b360516-c130-4454-8be0-a24a90a3f4eb"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produtofinal_nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement x="12" y="0" width="88" height="20" uuid="4416f3bb-27a3-41db-963b-07a4ea5f3877"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fabricacao_datafabricacao}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="334" y="0" width="109" height="20" uuid="7cb49865-f6a9-4238-8cce-f3bc706e5173"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fabricacao_situacao}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="443" y="0" width="109" height="20" uuid="eeba1ecc-bde9-4c28-bcec-d362f1b90d70"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fabricacao_quantidadeproduto}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="46">
+			<subreport>
+				<reportElement x="12" y="14" width="540" height="25" uuid="61bf403a-7735-49f9-a838-2cde08b7ae00"/>
+				<subreportParameter name="fabricacaoid">
+					<subreportParameterExpression><![CDATA[$F{fabricacao_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RelItensFabricacao.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="90">
+			<staticText>
+				<reportElement x="304" y="60" width="122" height="20" forecolor="#FF0000" backcolor="#FF0000" uuid="49c8ed72-baef-44cd-a9a0-a1c8c7cf2171"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Final:   ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement x="426" y="60" width="92" height="20" forecolor="#FF0000" uuid="61b5c36f-3826-499e-8794-8821158b93fc"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fabricacao_valorfinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="304" y="20" width="122" height="20" forecolor="#000000" backcolor="#FF0000" uuid="8daaf7e3-eb93-40af-a3bc-7632b16da0ee"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Valor Gasto:   ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement x="426" y="20" width="92" height="20" uuid="de81557f-6311-405c-b80e-945998387e8b"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fabricacao_valortotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="426" y="40" width="82" height="20" uuid="627f1627-b9cb-4865-ac65-a33f1e6d28ce"/>
+				<textElement textAlignment="Right">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fabricacao_percentual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="304" y="40" width="122" height="20" forecolor="#000000" backcolor="#FF0000" uuid="5d769064-a022-4f45-8384-b1e953432c45"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Percentual de Lucro:   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="508" y="40" width="10" height="20" forecolor="#000000" backcolor="#FF0000" uuid="37083865-0cce-4c00-905a-d7e650653395"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="1ad17445-5653-41e4-9b85-63570ff20055"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="160a565b-6b17-4c89-8090-25ffccc27520"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="ba75e3d8-ef7e-418c-bb4a-e952d02c7890"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

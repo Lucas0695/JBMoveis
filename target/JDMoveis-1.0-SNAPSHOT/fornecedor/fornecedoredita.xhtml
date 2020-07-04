@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h1 align="center">Cadastro de Fornecedores</h1>        
+            <h:form>
+                <p:growl autoUpdate="true"/>
+
+                                <table>
+                                    <tr><td align="center" width="1450"> 
+                                            <p:selectOneRadio  value="#{fornecedorControle.tipoPessoa}"  layout="grid" columns="2">
+                                                <f:selectItem itemLabel="Pessoa Fisica" itemValue="PessoaFisica"/> 
+                                                <f:selectItem itemLabel="Pessoa Juridica" itemValue="PessoaJuridica"/>
+                                                <p:ajax  update="painel"/>
+                                            </p:selectOneRadio>    
+                                        </td></tr>
+                                </table>
+                                <br/>
+    
+                    <p:panelGrid columns="4" id="painel"> 
+
+                        Nome:<p:inputText value="#{fornecedorControle.forn.nome}" 
+                                          required="true"
+                                          requiredMessage="O nome é obrigatório!"
+                                          size="50"
+                                          id="nome"/>
+                        <p:outputLabel value="CPF:" rendered="#{fornecedorControle.isPF()}"/>
+                        <p:inputMask value="#{fornecedorControle.forn.cpfCnpj}" 
+                                     mask="999.999.999-99"
+                                     required="true"
+                                     requiredMessage="O CPF é obrigatório!"
+                                     size="25"
+                                     id="cpfCnpj1"
+                                     rendered="#{fornecedorControle.isPF()}"/>
+                        <p:outputLabel value="CNPJ:" rendered="#{fornecedorControle.isPJ()}"/>
+                        <p:inputMask value="#{fornecedorControle.forn.cpfCnpj}" 
+                                     mask="99.999.999/9999-99"
+                                     required="true"
+                                     requiredMessage="O CNPJ é obrigatório!"
+                                     size="25"
+                                     id="cpfCnpj2"
+                                     rendered="#{fornecedorControle.isPJ()}"/>
+                        Endereço:<p:inputText value="#{fornecedorControle.forn.endereco}" 
+                                              required="true"
+                                              requiredMessage="O esdereço é obrigatório!"
+                                              size="50"
+                                              id="enderece"/>
+                        Numero:<p:inputText value="#{fornecedorControle.forn.numero}" 
+                                            required="true"
+                                            size="5"
+                                            id="numero"/>
+                        Bairro:<p:inputText value="#{fornecedorControle.forn.bairro}" 
+                                            required="true"
+                                            size="20"
+                                            id="bairro"/>
+                        1° Telefone:<p:inputMask value="#{fornecedorControle.forn.telefone}" 
+                                              mask="(99)9999-99999"
+                                              required="true"
+                                              size="25"
+                                              id="telefone"/>
+                        
+                        Cidade: <p:autoComplete value="#{fornecedorControle.forn.cidade}"
+                                                completeMethod="#{fornecedorControle.getListaCidadesFiltrando}"
+                                                var="cid"
+                                                itemLabel="#{cid.nome}"
+                                                itemValue="#{cid}"
+                                                converter="#{clienteControle.cidadeConverter}"
+                                                forceSelection="true"
+                                                />
+                        2° Telefone:<p:inputMask value="#{fornecedorControle.forn.telefone2}" 
+                                              mask="(99)9999-99999"
+                                              size="25"
+                                              id="telefone2"/>
+                    </p:panelGrid>
+                    <p:panelGrid>
+                        <br/>
+                        <p:commandButton value="Salvar" 
+                                         actionListener="#{fornecedorControle.salvar()}"
+                                         action="fornecedorlista"
+                                         />
+                        <p:commandButton value="Voltar" 
+                                         action="fornecedorlista"
+                                         immediate="true"
+                                         />
+                    </p:panelGrid>                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

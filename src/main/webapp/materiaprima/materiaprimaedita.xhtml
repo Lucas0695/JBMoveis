@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h1 align="center">Cadastro de Matéria Prima</h1>        
+            <h:form>
+                <p:growl autoUpdate="true"/>
+                <p:panelGrid columns="2">                
+                    Nome:<p:inputText value="#{materiaPrimaControle.mp.nome}" 
+                                      required="true"
+                                      requiredMessage="O nome é obrigatório!"
+                                      size="50"
+                                      id="nome"/>
+                    Estoque:<p:inputText value="#{materiaPrimaControle.mp.estoque}" 
+                                         size="50"
+                                         id="estoque"/>
+                    Preço:<p:inputText value="#{materiaPrimaControle.mp.preco}" 
+                                       required="true"
+                                       requiredMessage="O preço é obrigatório!"
+                                       size="20"
+                                       id="preco"
+                                       onkeydown="mascaraMonetaria(this)" 
+                                       converter="#{materiaPrimaControle.moneyConverter}"/>
+
+                    Grupo: <p:autoComplete value="#{materiaPrimaControle.mp.grupoMateriaPrima}"
+                                           completeMethod="#{materiaPrimaControle.getListaGrupoMateriaPrimaFiltrando}"
+                                           var="gmp"
+                                           itemLabel="#{gmp.descricao}"
+                                           itemValue="#{gmp}"
+                                           converter="#{materiaPrimaControle.grupoMateriaPrimaConverter}"
+                                           forceSelection="true"
+                                           />
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{materiaPrimaControle.salvar()}"
+                                     action="materiaprimalista"
+                                     />
+                    <p:commandButton value="Voltar" 
+                                     action="materiaprimalista"
+                                     immediate="true"
+                                     />
+                </p:panelGrid>                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

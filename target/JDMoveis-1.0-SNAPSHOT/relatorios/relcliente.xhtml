@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h1 align="center">Relatórios</h1>        
+            <h:form>  
+                <table>
+                    <tr><td align="center" width="1450"> 
+                            <p:selectOneRadio  value="#{clienteControle.tipoPessoa}"  layout="grid" columns="2">
+                                <f:selectItem itemLabel="Pessoa Fisica" itemValue="PessoaFisica"/> 
+                                <f:selectItem itemLabel="Pessoa Juridica" itemValue="PessoaJuridica"/>
+                                <p:ajax  update="painel"/>
+                            </p:selectOneRadio>    
+                        </td></tr>
+                </table>
+                <br/>
+                <p:panelGrid columns="2" id="painel">
+                    Filtro de Nome: <p:inputText value="#{relatorioControle.filtro}" size="30"/>
+                    <p:outputLabel value="CPF:" rendered="#{clienteControle.isPF()}"/>
+                    <p:inputMask value="#{relatorioControle.cpfcnpj}" 
+                                 mask="999.999.999-99"
+                                 size="25"
+                                 id="cpfCnpj1"
+                                 rendered="#{clienteControle.isPF()}"/>
+                    <p:outputLabel value="CNPJ:" rendered="#{clienteControle.isPJ()}"/>
+                    <p:inputMask value="#{relatorioControle.cpfcnpj}" 
+                                 mask="99.999.999/9999-99"
+                                 size="25"
+                                 id="cpfCnpj2"
+                                 rendered="#{clienteControle.isPJ()}"/>
+
+                    <p:commandButton value="Gerar Relatório de Clientes" 
+                                     actionListener="#{relatorioControle.gerarRelatorioClientes()}"
+                                     ajax="false" 
+                                     onclick="this.form.target = '_blank'"/>
+                </p:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
